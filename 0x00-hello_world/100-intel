@@ -1,23 +1,2 @@
 export CFILE="main.c"
 ./generate_asm.sh
-
-#!/bin/bash
-
-# Retrieve the C file name from the CFILE environment variable
-c_file="$CFILE"
-
-# Extract the base name of the C file (without the extension)
-base_name=$(basename "$c_file" .c)
-
-# Generate the assembly code using GCC with Intel syntax
-gcc -S -masm=intel "$c_file" -o "$base_name.s"
-
-# Check if the assembly code generation was successful
-if [ $? -eq 0 ]; then
-  # Insert the shebang line at the beginning of the assembly code file
-  sed -i '1i #!/bin/bash' "$base_name.s"
-  echo "Assembly code generated successfully. Output file: $base_name.s"
-else
-  echo "Assembly code generation failed."
-fi
-
