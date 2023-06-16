@@ -1,2 +1,15 @@
 #!/bin/bash
-gcc $CFILE -o cisfum
+
+# Retrieve the C file name from the CFILE environment variable
+c_file="$CFILE"
+
+# Compile the C file and create the executable
+gcc "$c_file" -o cisfun
+
+# Check if the compilation was successful
+if [ $? -eq 0 ]; then
+  echo "Compilation successful. Executable created: cisfun"
+else
+  echo "Compilation failed."
+fi
+
