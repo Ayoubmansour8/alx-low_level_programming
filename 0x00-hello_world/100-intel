@@ -4,11 +4,11 @@
 c_file="$CFILE"
 
 # Generate the assembly code using GCC with Intel syntax
-gcc -S -masm=intel "$c_file" -o "${c_file%.c}.s"
+gcc -S -masm=intel "$c_file" -o "${c_file%.*}.s"
 
 # Check if the assembly code generation was successful
 if [ $? -eq 0 ]; then
-  echo "Assembly code generated successfully. Output file: ${c_file%.c}.s"
+  echo "Assembly code generated successfully. Output file: ${c_file%.*}.s"
 else
   echo "Assembly code generation failed."
 fi
