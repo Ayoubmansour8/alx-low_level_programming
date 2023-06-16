@@ -1,7 +1,9 @@
 #include <stdio.h>
 
 /**
- * The main function prints the sizes of various types.
+ * @brief Prints the sizes of various types.
+ *
+ * @return 0 on successful execution.
  */
 int main(void)
 {
@@ -13,3 +15,4 @@ int main(void)
 
     return 0;
 }
+
