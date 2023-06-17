@@ -10,16 +10,16 @@ int main() {
 
     n = rand() % RAND_MAX; /* Generate a random number */
 
-    printf("Last digit of %d is ", n);
+    lastDigit = abs(n % 10); /* Extract the last digit of n */
 
-    lastDigit = n % 10; /* Extract the last digit of n */
+    printf("Last digit of %d is %d and is ", n, lastDigit);
 
     if (lastDigit > 5) {
-        printf("%d and is greater than 5", lastDigit);
+        printf("greater than 5");
     } else if (lastDigit == 0) {
-        printf("%d and is 0", lastDigit);
+        printf("0");
     } else {
-        printf("%d and is less than 6 and not 0", lastDigit);
+        printf("less than 6 and not 0");
     }
 
     printf("\n");
