@@ -3,23 +3,21 @@
 #include <time.h>
 
 int main() {
-    int n; // Declare the variable at the beginning of the function
+    int n; /* Declare the variable at the beginning of the function */
 
-    srand(time(0)); /* Seed the random number generator with current time */
-
-    n = rand() % RAND_MAX; // Generate a random number
-
-    printf("The number %d is ", n);
-
+    srand(time(0)); /* Initialize random number generator */
+    
+    n = rand() % 201 - 100; /* Generate a random number between -100 and 100 */
+    
+    printf("The number is %d\n", n);
+    
     if (n > 0) {
-        printf("positive");
-    } else if (n == 0) {
-        printf("zero");
+        printf("is positive\n");
+    } else if (n < 0) {
+        printf("is negative\n");
     } else {
-        printf("negative");
+        printf("is zero\n");
     }
-
-    printf("\n");
-
+    
     return 0;
 }
