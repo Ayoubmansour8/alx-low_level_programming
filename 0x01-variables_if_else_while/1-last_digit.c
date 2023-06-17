@@ -3,13 +3,16 @@
 #include <time.h>
 
 int main() {
-    srand(time(0)); // Seed the random number generator with current time
+    int n;
+    int lastDigit;
 
-    int n = rand() % RAND_MAX; // Generate a random number
+    srand(time(0)); /* Seed the random number generator with current time */
+
+    n = rand() % RAND_MAX; /* Generate a random number */
 
     printf("Last digit of %d is ", n);
 
-    int lastDigit = n % 10; // Extract the last digit of n
+    lastDigit = n % 10; /* Extract the last digit of n */
 
     if (lastDigit > 5) {
         printf("%d and is greater than 5", lastDigit);
