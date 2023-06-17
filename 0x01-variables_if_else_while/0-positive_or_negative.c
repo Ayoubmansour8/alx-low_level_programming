@@ -3,9 +3,11 @@
 #include <time.h>
 
 int main() {
-    srand(time(0)); // Seed the random number generator with current time
+    int n; // Declare the variable at the beginning of the function
 
-    int n = rand() % RAND_MAX; // Generate a random number
+    srand(time(0)); /* Seed the random number generator with current time */
+
+    n = rand() % RAND_MAX; // Generate a random number
 
     printf("The number %d is ", n);
 
@@ -21,4 +23,3 @@ int main() {
 
     return 0;
 }
-
