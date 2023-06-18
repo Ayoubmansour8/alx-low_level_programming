@@ -1,220 +1,36 @@
+/*
+ * File: 100-print_comb3.c
+ * Auth: Brennan D Baraban
+ */
+
 #include <stdio.h>
 
-int main() {
-    putchar('0');
-    putchar('1');
-    putchar(',');
-    putchar(' ');
-    
-    putchar('0');
-    putchar('2');
-    putchar(',');
-    putchar(' ');
+/**
+ * main - Prints all possible combinations of two different digits,
+ *        in ascending order, separated by a comma followed by a space.
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+	int digit1, digit2;
 
-    putchar('0');
-    putchar('3');
-    putchar(',');
-    putchar(' ');
+	for (digit1 = 0; digit1 < 9; digit1++)
+	{
+		for (digit2 = digit1 + 1; digit2 < 10; digit2++)
+		{
+			putchar((digit1 % 10) + '0');
+			putchar((digit2 % 10) + '0');
 
-    putchar('0');
-    putchar('4');
-    putchar(',');
-    putchar(' ');
+			if (digit1 == 8 && digit2 == 9)
+				continue;
+			
+			putchar(',');
+			putchar(' ');
+		}
+	}
 
-    putchar('0');
-    putchar('5');
-    putchar(',');
-    putchar(' ');
+	putchar('\n');
 
-    putchar('0');
-    putchar('6');
-    putchar(',');
-    putchar(' ');
-
-    putchar('0');
-    putchar('7');
-    putchar(',');
-    putchar(' ');
-
-    putchar('0');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar('0');
-    putchar('9');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('2');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('3');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('4');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('5');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('6');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('7');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar('1');
-    putchar('9');
-    putchar(',');
-    putchar(' ');
-
-    putchar('2');
-    putchar('3');
-    putchar(',');
-    putchar(' ');
-
-    putchar('2');
-    putchar('4');
-    putchar(',');
-    putchar(' ');
-
-    putchar('2');
-    putchar('5');
-    putchar(',');
-    putchar(' ');
-
-    putchar('2');
-    putchar('6');
-    putchar(',');
-    putchar(' ');
-
-    putchar('2');
-    putchar('7');
-    putchar(',');
-    putchar(' ');
-
-    putchar('2');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar('2');
-    putchar('9');
-    putchar(',');
-    putchar(' ');
-
-    putchar('3');
-    putchar('4');
-    putchar(',');
-    putchar(' ');
-
-    putchar('3');
-    putchar('5');
-    putchar(',');
-    putchar(' ');
-
-    putchar('3');
-    putchar('6');
-    putchar(',');
-    putchar(' ');
-
-    putchar('3');
-    putchar('7');
-    putchar(',');
-    putchar(' ');
-
-    putchar('3');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar('3');
-    putchar('9');
-    putchar(',');
-    putchar(' ');
-
-    putchar('4');
-    putchar('5');
-    putchar(',');
-    putchar(' ');
-
-    putchar('4');
-    putchar('6');
-    putchar(',');
-    putchar(' ');
-
-    putchar('4');
-    putchar('7');
-    putchar(',');
-    putchar(' ');
-
-    putchar('4');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar('4');
-    putchar('9');
-    putchar(',');
-    putchar(' ');
-
-    putchar('5');
-    putchar('6');
-    putchar(',');
-    putchar(' ');
-
-    putchar('5');
-    putchar('7');
-    putchar(',');
-    putchar(' ');
-
-    putchar('5');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar('5');
-    putchar('9');
-    putchar(',');
-    putchar(' ');
-
-    putchar('6');
-    putchar('7');
-    putchar(',');
-    putchar(' ');
-
-    putchar('6');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar('6');
-    putchar('9');
-    putchar(',');
-    putchar(' ');
-
-    putchar('7');
-    putchar('8');
-    putchar(',');
-    putchar(' ');
-
-    putchar
-
+	return (0);
+}
