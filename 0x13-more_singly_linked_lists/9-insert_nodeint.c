@@ -1,26 +1,46 @@
 #include "lists.h"
 
 /**
- * free_listint2 - frees a linked list
- * @head: pointer to the listint_t list to be freed
+ * insert_nodeint_at_index - inserts a new node in a linked list,
+ * at a given position
+ * @head: pointer to the first node in the list
+ * @idx: index where the new node is added
+ * @n: data to insert in the new node
+ *
+ * Return: pointer to the new node, or NULL
  */
-void free_listint2(listint_t **head)
+listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	/* Declare the current pointer */
-	listint_t *current;
+ unsigned int i;
+ listint_t *new;
+ listint_t *temp = *head;
 
-	/* Check if the head pointer is NULL */
-	if (head == NULL)
-		return;
+ new = malloc(sizeof(listint_t));
+ if (!new || !head)
+ return (NULL);
 
-	/* Loop through the linked list and free nodes */
-	while (*head)
-	{
-		current = *head; // Assign the head pointer to 'current'
-		*head = (*head)->next; // Move the head pointer to the next node
-		free(current); // Free the current node
-	}
+ new->n = n;
+ new->next = NULL;
 
-	*head = NULL; // Set the head pointer to NULL after freeing all nodes
+ if (idx == 0)
+ {
+ new->next = *head;
+ *head = new;
+ return (new);
+ }
+
+ for (i = 0; temp && i < idx; i++)
+ {
+ if (i == idx - 1)
+ {
+ new->next = temp->next;
+ temp->next = new;
+ return (new);
+ }
+ else
+ temp = temp->next;
+ }
+
+ return (NULL);
 }
 
