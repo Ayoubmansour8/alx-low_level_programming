@@ -11,36 +11,43 @@
  */
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
- unsigned int i;
- listint_t *new;
- listint_t *temp = *head;
+	unsigned int i;
+	listint_t *new;
+	listint_t *temp = *head;
 
- new = malloc(sizeof(listint_t));
- if (!new || !head)
- return (NULL);
+	/* Allocate memory for the new node */
+	new = malloc(sizeof(listint_t));
+	if (!new || !head)
+		return (NULL);
 
- new->n = n;
- new->next = NULL;
+	/* Set the data and next pointer of the new node */
+	new->n = n;
+	new->next = NULL;
 
- if (idx == 0)
- {
- new->next = *head;
- *head = new;
- return (new);
- }
+	/* Insert the new node at the beginning of the list */
+	if (idx == 0)
+	{
+		new->next = *head;
+		*head = new;
+		return (new);
+	}
 
- for (i = 0; temp && i < idx; i++)
- {
- if (i == idx - 1)
- {
- new->next = temp->next;
- temp->next = new;
- return (new);
- }
- else
- temp = temp->next;
- }
+	/* Traverse the list to find the node before the insertion point */
+	for (i = 0; temp && i < idx; i++)
+	{
+		/* If the node before the insertion point is found */
+		if (i == idx - 1)
+		{
+			/* Insert the new node between temp and temp->next */
+			new->next = temp->next;
+			temp->next = new;
+			return (new);
+		}
+		else
+			temp = temp->next;
+	}
 
- return (NULL);
+	/* If the insertion point is out of bounds, return NULL */
+	return (NULL);
 }
 
