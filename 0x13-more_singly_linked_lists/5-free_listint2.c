@@ -19,5 +19,6 @@ void free_listint2(listint_t **head)
 	}
 
 	*head = NULL; // Set the head pointer to NULL after freeing all nodes
+	// Now, the linked list has been successfully freed
 }
 
