@@ -1,53 +1,26 @@
 #include "lists.h"
 
 /**
- * insert_nodeint_at_index - inserts a new node in a linked list,
- * at a given position
- * @head: pointer to the first node in the list
- * @idx: index where the new node is added
- * @n: data to insert in the new node
- *
- * Return: pointer to the new node, or NULL
+ * free_listint2 - frees a linked list
+ * @head: pointer to the listint_t list to be freed
  */
-listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
+void free_listint2(listint_t **head)
 {
-	unsigned int i;
-	listint_t *new;
-	listint_t *temp = *head;
+	/* Declare the current pointer */
+	listint_t *current;
 
-	/* Allocate memory for the new node */
-	new = malloc(sizeof(listint_t));
-	if (!new || !head)
-		return (NULL);
+	/* Check if the head pointer is NULL */
+	if (head == NULL)
+		return;
 
-	/* Set the data and next pointer of the new node */
-	new->n = n;
-	new->next = NULL;
-
-	/* Insert the new node at the beginning of the list */
-	if (idx == 0)
+	/* Loop through the linked list and free nodes */
+	while (*head)
 	{
-		new->next = *head;
-		*head = new;
-		return (new);
+		current = *head; // Assign the head pointer to 'current'
+		*head = (*head)->next; // Move the head pointer to the next node
+		free(current); // Free the current node
 	}
 
-	/* Traverse the list to find the node before the insertion point */
-	for (i = 0; temp && i < idx; i++)
-	{
-		/* If the node before the insertion point is found */
-		if (i == idx - 1)
-		{
-			/* Insert the new node between temp and temp->next */
-			new->next = temp->next;
-			temp->next = new;
-			return (new);
-		}
-		else
-			temp = temp->next;
-	}
-
-	/* If the insertion point is out of bounds, return NULL */
-	return (NULL);
+	*head = NULL; // Set the head pointer to NULL after freeing all nodes
 }
 
