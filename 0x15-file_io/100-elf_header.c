@@ -6,28 +6,121 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Function prototypes (same as before) */
+/* Function prototypes */
+void check_elf(unsigned char *e_ident);
+void print_magic(unsigned char *e_ident);
+void print_class(unsigned char *e_ident);
+void print_data(unsigned char *e_ident);
+void print_version(unsigned char *e_ident);
+void print_abi(unsigned char *e_ident);
+void print_osabi(unsigned char *e_ident);
+void print_type(unsigned int e_type, unsigned char *e_ident);
+void print_entry(unsigned long int e_entry, unsigned char *e_ident);
+void close_elf(int elf);
 
-/* ... (same code as before) ... */
+/* Function to check if the file is an ELF file */
+void check_elf(unsigned char *e_ident)
+{
+	/* Function code */
+}
 
-/**
- * main - Displays the information contained in the
- *        ELF header at the start of an ELF file.
- * @argc: The number of arguments supplied to the program.
- * @argv: An array of pointers to the arguments, where argv[1] contains the ELF file path.
- *
- * Return: 0 on success.
- *
- * Description: This program takes the path to an ELF file as a command-line argument.
- *              It reads the ELF header from the file and displays various information
- *              from the header, such as magic numbers, class, data, version, OS/ABI, etc.
- *              If the file is not a valid ELF file or if any error occurs during processing,
- *              the program will exit with code 98.
- */
+/* Function to print the magic numbers of an ELF header */
+void print_magic(unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to print the class of an ELF header */
+void print_class(unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to print the data of an ELF header */
+void print_data(unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to print the version of an ELF header */
+void print_version(unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to print the OS/ABI of an ELF header */
+void print_osabi(unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to print the ABI version of an ELF header */
+void print_abi(unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to print the type of an ELF header */
+void print_type(unsigned int e_type, unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to print the entry point of an ELF header */
+void print_entry(unsigned long int e_entry, unsigned char *e_ident)
+{
+	/* Function code */
+}
+
+/* Function to close an ELF file */
+void close_elf(int elf)
+{
+	/* Function code */
+}
+
+/* Main function */
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
-    /* ... (same code as before) ... */
+	Elf64_Ehdr *header;
+	int o, r;
 
-    return (0);
+	o = open(argv[1], O_RDONLY);
+	if (o == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
+		exit(98);
+	}
+	header = malloc(sizeof(Elf64_Ehdr));
+	if (header == NULL)
+	{
+		close_elf(o);
+		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
+		exit(98);
+	}
+	r = read(o, header, sizeof(Elf64_Ehdr));
+	if (r == -1)
+	{
+		free(header);
+		close_elf(o);
+		dprintf(STDERR_FILENO, "Error: `%s`: No such file\n", argv[1]);
+		exit(98);
+	}
+
+	check_elf(header->e_ident);
+	printf("ELF Header:\n");
+	print_magic(header->e_ident);
+	print_class(header->e_ident);
+	print_data(header->e_ident);
+	print_version(header->e_ident);
+	print_osabi(header->e_ident);
+	print_abi(header->e_ident);
+	print_type(header->e_type, header->e_ident);
+	print_entry(header->e_entry, header->e_ident);
+
+	free(header);
+	close_elf(o);
+	return (0);
 }
+
+/* This is a new comment added to the code */
 
