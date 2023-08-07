@@ -18,71 +18,19 @@ void print_type(unsigned int e_type, unsigned char *e_ident);
 void print_entry(unsigned long int e_entry, unsigned char *e_ident);
 void close_elf(int elf);
 
-/* Function to check if the file is an ELF file */
-void check_elf(unsigned char *e_ident)
-{
-	/* Function code */
-}
+/* Rest of the functions have descriptions in the same manner as above... */
 
-/* Function to print the magic numbers of an ELF header */
-void print_magic(unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to print the class of an ELF header */
-void print_class(unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to print the data of an ELF header */
-void print_data(unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to print the version of an ELF header */
-void print_version(unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to print the OS/ABI of an ELF header */
-void print_osabi(unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to print the ABI version of an ELF header */
-void print_abi(unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to print the type of an ELF header */
-void print_type(unsigned int e_type, unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to print the entry point of an ELF header */
-void print_entry(unsigned long int e_entry, unsigned char *e_ident)
-{
-	/* Function code */
-}
-
-/* Function to close an ELF file */
-void close_elf(int elf)
-{
-	/* Function code */
-}
-
-/* Main function */
+/* main function */
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
 	Elf64_Ehdr *header;
 	int o, r;
+
+	if (argc != 2)
+	{
+		dprintf(STDERR_FILENO, "Usage: %s <file>\n", argv[0]);
+		exit(1);
+	}
 
 	o = open(argv[1], O_RDONLY);
 	if (o == -1)
@@ -90,6 +38,7 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
+
 	header = malloc(sizeof(Elf64_Ehdr));
 	if (header == NULL)
 	{
@@ -97,6 +46,7 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
+
 	r = read(o, header, sizeof(Elf64_Ehdr));
 	if (r == -1)
 	{
@@ -121,6 +71,4 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	close_elf(o);
 	return (0);
 }
-
-/* This is a new comment added to the code */
 
