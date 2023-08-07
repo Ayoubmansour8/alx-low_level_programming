@@ -1,22 +1,55 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
 
-#define BUFFER_SIZE 4096
-
-void copy_file(const char *src_file, const char *dest_file);
-int open_file(const char *file, int flags, mode_t mode);
+char *create_buffer(char *file);
 void close_file(int fd);
-void handle_error(const char *msg);
+
+/**
+ * create_buffer - Allocates 1024 bytes for a buffer.
+ * @file: The name of the file buffer is storing chars for.
+ *
+ * Return: A pointer to the newly-allocated buffer.
+ */
+char *create_buffer(char *file)
+{
+	char *buffer;
+
+	buffer = malloc(sizeof(char) * 1024);
+
+	if (buffer == NULL)
+	{
+		dprintf(STDERR_FILENO,
+			"Error: Can't write to %s\n", file);
+		exit(99);
+	}
+
+	return (buffer);
+}
+
+/**
+ * close_file - Closes file descriptors.
+ * @fd: The file descriptor to be closed.
+ */
+void close_file(int fd)
+{
+	int c;
+
+	c = close(fd);
+
+	if (c == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+		exit(100);
+	}
+}
 
 /**
  * main - Copies the contents of a file to another file.
  * @argc: The number of arguments supplied to the program.
  * @argv: An array of pointers to the arguments.
  *
- * Return: 0 on success, otherwise an appropriate exit code.
+ * Return: 0 on success.
  *
  * Description: If the argument count is incorrect - exit code 97.
  * If file_from does not exist or cannot be read - exit code 98.
@@ -25,81 +58,49 @@ void handle_error(const char *msg);
  */
 int main(int argc, char *argv[])
 {
+	int from, to, r, w;
+	char *buffer;
+
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
-	copy_file(argv[1], argv[2]);
+	buffer = create_buffer(argv[2]);
+	from = open(argv[1], O_RDONLY);
+	r = read(from, buffer, 1024);
+	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+
+	do {
+		if (from == -1 || r == -1)
+		{
+			dprintf(STDERR_FILENO,
+				"Error: Can't read from file %s\n", argv[1]);
+			free(buffer);
+			exit(98);
+		}
+
+		w = write(to, buffer, r);
+		if (to == -1 || w == -1)
+		{
+			dprintf(STDERR_FILENO,
+				"Error: Can't write to %s\n", argv[2]);
+			free(buffer);
+			exit(99);
+		}
+
+		r = read(from, buffer, 1024);
+		to = open(argv[2], O_WRONLY | O_APPEND);
+
+	} while (r > 0);
+
+	free(buffer);
+	close_file(from);
+	close_file(to);
 
 	return (0);
 }
 
-/**
- * copy_file - Copies the contents of a file to another file.
- * @src_file: The name of the source file.
- * @dest_file: The name of the destination file.
- */
-void copy_file(const char *src_file, const char *dest_file)
-{
-	int from, to;
-	ssize_t r, w;
-	char buffer[BUFFER_SIZE];
-
-	from = open_file(src_file, O_RDONLY, 0);
-	to = open_file(dest_file, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-
-	while ((r = read(from, buffer, BUFFER_SIZE)) > 0)
-	{
-		w = write(to, buffer, r);
-		if (w != r)
-			handle_error("Error: Can't write to destination file");
-	}
-
-	if (r == -1)
-		handle_error("Error: Can't read from source file");
-
-	close_file(from);
-	close_file(to);
-}
-
-/**
- * open_file - Opens a file and handles errors if any.
- * @file: The name of the file to open.
- * @flags: The flags to use when opening the file.
- * @mode: The file mode to set if the file is created.
- *
- * Return: The file descriptor on success, otherwise exits with an error code.
- */
-int open_file(const char *file, int flags, mode_t mode)
-{
-	int fd = open(file, flags, mode);
-	if (fd == -1)
-		handle_error("Error: Can't open file");
-
-	return fd;
-}
-
-/**
- * close_file - Closes a file descriptor and handles errors if any.
- * @fd: The file descriptor to be closed.
- */
-void close_file(int fd)
-{
-	int c = close(fd);
-
-	if (c == -1)
-		handle_error("Error: Can't close file descriptor");
-}
-
-/**
- * handle_error - Prints an error message and exits the program with an error code.
- * @msg: The error message to be printed.
- */
-void handle_error(const char *msg)
-{
-	dprintf(STDERR_FILENO, "%s\n", msg);
-	exit(99);
-}
+/* Added a comment here */
 
